@@ -72,18 +72,18 @@ def main(argv):
     if not server:
         server = "127.0.0.1"
 
-    # Open connection with scribe
+  # Open connection with scribe
     zipkin = None
-    if (transport=='scribe'):
-        zipkin = ZipkinScribeClient(port, server)
-        if not port:
-            port = 9410
-    else:
-        transport = "http"
-        zipkin = HttpClient(port, server)
-        if not port:
-            port = 9411
+    transport = 'scribe'
+    port = '9410'
+    zipkin = ZipkinScribeClient(port, server)
 
+#    transport = "http"
+#    port = '9411'
+#    zipkin = HttpClient(port, server)
+#    if not port:
+#        port = '9411'
+#
     # Create TraceCollection and add trace:
     traces = TraceCollection()
     trace_handle = traces.add_trace(path, "ctf")

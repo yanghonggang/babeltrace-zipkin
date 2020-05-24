@@ -66,11 +66,13 @@ def fire():
                     service_name == 'Objecter' and
                     event_name == 'async enqueueing message'):
                     collector[trace_id]['2'] = timestamp
-                elif trace_name == 'osd op' and event_name == 'message destructed':
-                    debug_print(trace_id, e) 
-                    # primary osd op(priority = 63)
-                    if priority == 63:
-                        collector[trace_id]['3'] = timestamp
+                elif trace_name == 'osd op':
+                    if (event_name == 'message destructed' or
+                       event_name == 'enqueue op'):
+                        debug_print(trace_id, e) 
+                        # primary osd op(priority = 63)
+                        if priority == 63:
+                            collector[trace_id]['3'] = timestamp
                 elif event_name == 'sup_op_commit':
                     collector[trace_id]['4'] = timestamp
                 elif event_name == 'osd op reply':
@@ -83,6 +85,6 @@ def fire():
                    debug_print(trace_id, collector[trace_id])
                    reap(collector[trace_id], trace_id)
                    collector.pop(trace_id)
-
+    print (len(collector), collector)
 if __name__ == '__main__':
     fire()

@@ -64,15 +64,20 @@ def fire():
             collector[span_id] = {'0' : timestamp}
         else:
             if span_id in collector:
-                if (event_name == 'txc encode finished'):
+                if (event_name == 'txc encode finished' and
+                    '1' not in collector[span_id]):
                     collector[span_id]['1'] = timestamp
-                elif event_name == 'io_done':
+                elif (event_name == 'io_done' and
+                      '2' not in collector[span_id]):
                     collector[span_id]['2'] = timestamp
-                elif event_name == 'kv_submitted':
+                elif (event_name == 'kv_submitted' and
+                      '3' not in collector[span_id]):
                     collector[span_id]['3'] = timestamp
-                elif event_name == 'db sync submit':
+                elif (event_name == 'db sync submit' and
+                      '4' not in collector[span_id]):
                     collector[span_id]['4'] = timestamp
-                elif (event_name == 'kv_done'):
+                elif (event_name == 'kv_done' and
+                      '5' not in collector[span_id]):
                    collector[span_id]['5'] = timestamp
            
                    # reap
